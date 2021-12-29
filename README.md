@@ -19,6 +19,10 @@ Highlight line number by each XX lines.
 
 ![highlight-line-relative-number-custom](https://user-images.githubusercontent.com/1638500/66466246-565a7c80-eabd-11e9-9ca8-1db2b0160c0a.gif)
 
+### set multiple colors with custom interval (1 to 5 and 10, 20, ...)
+
+![multiple-colors](https://user-images.githubusercontent.com/1638500/147657256-5d4fb680-1daa-4934-a2cc-54c4ec018f89.gif)
+
 ## Requirements
 
 - Neovim 0.3.2
@@ -45,7 +49,19 @@ let g:line_number_interval#use_custom = 1
 " Set custom interval list.
 " (default: fibonacci sequence ([1, 2, 3, 5, 8, 13, 21, 34, 55, ...]))
 " This option is only for relativenumber.
-let g:line_number_interval#custom_interval = [2, 4, 8, 16, 32, 64]
+let g:line_number_interval#custom_interval = [1,2,3,4,5,10,20,30,40,50,60,70,80,90]
+
+" Additional highlight
+" Use those colors for Nth (1st ~ 9th) element of custom interval.
+highlight HighlightedLineNr1 guifg=Yellow ctermfg=3
+highlight HighlightedLineNr2 guifg=Green ctermfg=2
+highlight HighlightedLineNr3 guifg=Cyan ctermfg=6
+highlight HighlightedLineNr4 guifg=Blue ctermfg=4
+highlight HighlightedLineNr5 guifg=Magenta ctermfg=5
+" highlight HighlightedLineNr6 guifg=White ctermfg=7
+" highlight HighlightedLineNr7 guifg=White ctermfg=7
+" highlight HighlightedLineNr8 guifg=White ctermfg=7
+" highlight HighlightedLineNr9 guifg=White ctermfg=7
 ```
 
 ## Commands

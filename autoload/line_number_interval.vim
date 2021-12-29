@@ -56,6 +56,14 @@ function! line_number_interval#enable() abort
         \ 'numhl': 'HighlightedLineNr'
         \ })
 
+    for i in range(1, 9)
+        if hlexists('HighlightedLineNr' . i)
+            call sign_define('LineNumberInterval' . i, {
+                \ 'numhl': 'HighlightedLineNr' . i
+                \ })
+        endif
+    endfor
+
     augroup LineNumberInterval
         autocmd!
         autocmd BufRead,BufNewFile,CursorMoved,CursorMovedI * call line_number_interval#update()
@@ -77,6 +85,13 @@ function! line_number_interval#disable() abort
         call sign_undefine('LineNumberInterval')
     catch /E155: Unknown sign: LineNumberInterval/
     endtry
+
+    for i in range(1, 9)
+        try
+            call sign_undefine('LineNumberInterval' . i)
+        catch /E155: Unknown sign: LineNumberInterval/
+        endtry
+    endfor
 
     if exists('s:linenr_color')
         execute 'highlight LineNr'
@@ -108,8 +123,13 @@ function! line_number_interval#update() abort
                     let l:numfolddelta = l:lnum - foldclosed(l:lnum)
                     let l:numfold += l:numfolddelta
                 endif
-                if match(g:line_number_interval#custom_interval, '^' . (line('.') - l:lnum - l:numfold) . '$') != -1
-                    call sign_place('', 'LineNumberGroup', 'LineNumberInterval', bufname('%'), {'lnum': l:lnum})
+                let l:match = match(g:line_number_interval#custom_interval, '^' . (line('.') - l:lnum - l:numfold) . '$')
+                if l:match != -1
+                    if hlexists('HighlightedLineNr' . (l:match + 1))
+                        call sign_place('', 'LineNumberGroup', 'LineNumberInterval' . (l:match + 1), bufname('%'), {'lnum': l:lnum})
+                    else
+                        call sign_place('', 'LineNumberGroup', 'LineNumberInterval', bufname('%'), {'lnum': l:lnum})
+                    endif
                 endif
                 let l:lnum -= 1 + l:numfolddelta
             endwhile
@@ -126,8 +146,13 @@ function! line_number_interval#update() abort
                     let l:numfolddelta = foldclosedend(l:lnum) - l:lnum
                     let l:numfold += l:numfolddelta
                 endif
-                if match(g:line_number_interval#custom_interval, '^' . (l:lnum - line('.') - l:numfold) . '$') != -1
-                    call sign_place('', 'LineNumberGroup', 'LineNumberInterval', bufname('%'), {'lnum': l:lnum})
+                let l:match = match(g:line_number_interval#custom_interval, '^' . (l:lnum - line('.') - l:numfold) . '$')
+                if l:match != -1
+                    if hlexists('HighlightedLineNr' . (l:match + 1))
+                        call sign_place('', 'LineNumberGroup', 'LineNumberInterval' . (l:match + 1), bufname('%'), {'lnum': l:lnum})
+                    else
+                        call sign_place('', 'LineNumberGroup', 'LineNumberInterval', bufname('%'), {'lnum': l:lnum})
+                    endif
                 endif
                 let l:lnum += 1 + l:numfolddelta
             endwhile
