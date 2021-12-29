@@ -86,6 +86,13 @@ function! line_number_interval#disable() abort
     catch /E155: Unknown sign: LineNumberInterval/
     endtry
 
+    for i in range(1, 9)
+        try
+            call sign_undefine('LineNumberInterval' . i)
+        catch /E155: Unknown sign: LineNumberInterval/
+        endtry
+    endfor
+
     if exists('s:linenr_color')
         execute 'highlight LineNr'
             \ 'guifg='   s:linenr_color.gui.fg   'guibg='   s:linenr_color.gui.bg
