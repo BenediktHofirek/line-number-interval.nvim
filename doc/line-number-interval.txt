@@ -1,6 +1,6 @@
 *line-number-interval.txt*	Highlight line number by each XX lines.
 
-Version : 0.3
+Version : 0.4
 Author  : IMOKURI <nenegi.01mo at gmail.com>
 License : MIT license
 
@@ -65,6 +65,42 @@ HighlightedLineNr					*HighlightedLineNr*
 	default value: same as |LineNr|
 	Set color to highlight.
 
+HighlightedLineNr1					*HighlightedLineNr1*
+	default value: undefined
+	Set color to highlight for 1st element of custom interval.
+
+HighlightedLineNr2					*HighlightedLineNr2*
+	default value: undefined
+	Set color to highlight for 2nd element of custom interval.
+
+HighlightedLineNr3					*HighlightedLineNr3*
+	default value: undefined
+	Set color to highlight for 3rd element of custom interval.
+
+HighlightedLineNr4					*HighlightedLineNr4*
+	default value: undefined
+	Set color to highlight for 4th element of custom interval.
+
+HighlightedLineNr5					*HighlightedLineNr5*
+	default value: undefined
+	Set color to highlight for 5th element of custom interval.
+
+HighlightedLineNr6					*HighlightedLineNr6*
+	default value: undefined
+	Set color to highlight for 6th element of custom interval.
+
+HighlightedLineNr7					*HighlightedLineNr7*
+	default value: undefined
+	Set color to highlight for 7th element of custom interval.
+
+HighlightedLineNr8					*HighlightedLineNr8*
+	default value: undefined
+	Set color to highlight for 8th element of custom interval.
+
+HighlightedLineNr9					*HighlightedLineNr9*
+	default value: undefined
+	Set color to highlight for 9th element of custom interval.
+
 DimLineNr						*DimLineNr*
 	default value: same as background color
 	Set color to dim.
@@ -84,6 +120,9 @@ COMMANDS					*line-number-interval-commands*
 
 ==============================================================================
 CHANGELOG					*line-number-interval-changelog*
+
+0.4	2021-12-29
+	- Add Nth color for custom interval
 
 0.3	2019-10-09
 	- Add custom interval feature.
