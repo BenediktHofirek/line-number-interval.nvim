@@ -7,28 +7,27 @@ on:
 
 jobs:
   test:
-    # strategy:
-    #   fail-fast: true
-    #   matrix:
-    #     nvim_version:
-    #       - stable
-    #       - nightly
+    strategy:
+      fail-fast: true
+      matrix:
+        nvim_version:
+          - stable
+          - nightly
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
-    # - name: Setup Vim
-    #   uses: rhysd/action-setup-vim@v1.2.8
-    #   with:
-    #     neovim: true
-    #     version: ${{ matrix.nvim_version }}
+    - name: Setup Vim
+      uses: rhysd/action-setup-vim@v1.2.8
+      with:
+        neovim: true
+        version: ${{ matrix.nvim_version }}
 
-    - name: Setup neovim
+    - name: Install Vader
       run: |
-        curl -OL https://raw.githubusercontent.com/norcalli/bot-ci/master/scripts/github-actions-setup.sh
-        source github-actions-setup.sh nightly-x64
+        git clone https://github.com/junegunn/vader.vim.git $GITHUB_WORKSPACE/test/vader.vim
 
     - name: Set up Python 3.x
       uses: actions/setup-python@v2
@@ -43,9 +42,15 @@ jobs:
 
     - name: Test
       run: |
-        ./run_test.sh
+        nvim --headless -u test/minimal_init.vim -c 'Vader! test/case/*.vader'
+      env:
+        VADER_OUTPUT_FILE: /dev/stderr
 
-    - name: Update coverage
-      run: |
-        covimerage xml
-        bash <(curl -s https://codecov.io/bash) -f coverage.xml
+    # - name: Test
+    #   run: |
+    #     ./run_test.sh
+    #
+    # - name: Update coverage
+    #   run: |
+    #     covimerage xml
+    #     bash <(curl -s https://codecov.io/bash) -f coverage.xml
