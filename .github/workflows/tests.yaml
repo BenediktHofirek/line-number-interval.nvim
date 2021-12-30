@@ -1,0 +1,52 @@
+name: Run tests
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: true
+      matrix:
+        nvim_version:
+          - stable
+          - nightly
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.x"
+
+    - name: Setup Vim
+      uses: rhysd/action-setup-vim@v1.2.8
+      with:
+        neovim: true
+        version: ${{ matrix.nvim_version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -U covimerage
+        # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Install Vader
+      run: |
+        git clone https://github.com/junegunn/vader.vim.git $GITHUB_WORKSPACE/test/vader.vim
+
+    - name: Run test
+      run: |
+        covimerage run nvim --headless -u test/minimal_init.vim -c 'Vader! test/case/*.vader'
+      env:
+        VADER_OUTPUT_FILE: /dev/stderr
+
+    - name: Update coverage
+      run: |
+        covimerage xml
+        bash <(curl -s https://codecov.io/bash) -f coverage.xml

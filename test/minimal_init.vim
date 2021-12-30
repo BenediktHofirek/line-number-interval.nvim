@@ -10,6 +10,6 @@ set runtimepath+=./test/vader.vim
 set runtimepath+=./
 
 filetype plugin indent on
-syntax on
+syntax enable
 
 set lines=18
