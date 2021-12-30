@@ -42,15 +42,11 @@ jobs:
 
     - name: Test
       run: |
-        nvim --headless -u test/minimal_init.vim -c 'Vader! test/case/*.vader'
+        covimerage run nvim --headless -u test/minimal_init.vim -c 'Vader! test/case/*.vader'
       env:
         VADER_OUTPUT_FILE: /dev/stderr
 
-    # - name: Test
-    #   run: |
-    #     ./run_test.sh
-    #
-    # - name: Update coverage
-    #   run: |
-    #     covimerage xml
-    #     bash <(curl -s https://codecov.io/bash) -f coverage.xml
+    - name: Update coverage
+      run: |
+        covimerage xml
+        bash <(curl -s https://codecov.io/bash) -f coverage.xml
