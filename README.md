@@ -2,8 +2,8 @@
 
 Highlight line number by each XX lines.
 
-[![Build Status](https://travis-ci.org/IMOKURI/line-number-interval.nvim.svg?branch=master)](https://travis-ci.org/IMOKURI/line-number-interval.nvim)
-[![codecov](https://codecov.io/gh/IMOKURI/line-number-interval.nvim/branch/master/graph/badge.svg)](https://codecov.io/gh/IMOKURI/line-number-interval.nvim)
+[![Run tests](https://github.com/IMOKURI/line-number-interval.nvim/actions/workflows/tests.yaml/badge.svg)](https://github.com/IMOKURI/line-number-interval.nvim/actions/workflows/tests.yaml)
+[![codecov](https://codecov.io/gh/IMOKURI/line-number-interval.nvim/branch/master/graph/badge.svg?token=hyQegcbxMB)](https://codecov.io/gh/IMOKURI/line-number-interval.nvim)
 
 ## Screenshots
 
