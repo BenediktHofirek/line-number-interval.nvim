@@ -19,20 +19,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.x"
+
     - name: Setup Vim
       uses: rhysd/action-setup-vim@v1.2.8
       with:
         neovim: true
         version: ${{ matrix.nvim_version }}
-
-    - name: Install Vader
-      run: |
-        git clone https://github.com/junegunn/vader.vim.git $GITHUB_WORKSPACE/test/vader.vim
-
-    - name: Set up Python 3.x
-      uses: actions/setup-python@v2
-      with:
-        python-version: "3.x"
 
     - name: Install dependencies
       run: |
@@ -40,7 +36,11 @@ jobs:
         pip install -U covimerage
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Test
+    - name: Install Vader
+      run: |
+        git clone https://github.com/junegunn/vader.vim.git $GITHUB_WORKSPACE/test/vader.vim
+
+    - name: Run test
       run: |
         covimerage run nvim --headless -u test/minimal_init.vim -c 'Vader! test/case/*.vader'
       env:
