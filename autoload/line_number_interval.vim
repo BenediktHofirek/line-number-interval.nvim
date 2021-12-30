@@ -200,6 +200,45 @@ function! line_number_interval#update() abort
             let l:lnum += 1
         endwhile
 
+        if g:line_number_interval#use_custom
+            let l:lnum = line('.') - 1
+            let l:numfold = 0
+            while l:lnum >= line('w0')
+                let l:numfolddelta = 0
+                if foldclosed(l:lnum) != -1
+                    let l:numfolddelta = l:lnum - foldclosed(l:lnum)
+                    let l:numfold += l:numfolddelta
+                endif
+                let l:match = match(g:line_number_interval#custom_interval, '^' . (line('.') - l:lnum - l:numfold) . '$')
+                if l:match != -1
+                    if hlexists('HighlightedLineNr' . (l:match + 1))
+                        call sign_place('', 'LineNumberGroup', 'LineNumberInterval' . (l:match + 1), bufname('%'), {'lnum': l:lnum})
+                    endif
+                endif
+                let l:lnum -= 1 + l:numfolddelta
+            endwhile
+
+            let l:lnum = line('.') + 1
+            if foldclosed(line('.')) != -1
+                let l:numfold = 1
+            else
+                let l:numfold = 0
+            endif
+            while l:lnum <= line('w$')
+                let l:numfolddelta = 0
+                if foldclosedend(l:lnum) != -1
+                    let l:numfolddelta = foldclosedend(l:lnum) - l:lnum
+                    let l:numfold += l:numfolddelta
+                endif
+                let l:match = match(g:line_number_interval#custom_interval, '^' . (l:lnum - line('.') - l:numfold) . '$')
+                if l:match != -1
+                    if hlexists('HighlightedLineNr' . (l:match + 1))
+                        call sign_place('', 'LineNumberGroup', 'LineNumberInterval' . (l:match + 1), bufname('%'), {'lnum': l:lnum})
+                    endif
+                endif
+                let l:lnum += 1 + l:numfolddelta
+            endwhile
+        endif
     endif
 endfunction
 

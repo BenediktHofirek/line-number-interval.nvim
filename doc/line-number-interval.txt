@@ -49,14 +49,12 @@ g:line_number_interval				*g:line_number_interval*
 
 g:line_number_interval#use_custom	*g:line_number_interval#use_custom*
 	default value: 0 (disable)
-	Enable to use custom interval.
-	This option is only for relativenumber.
+	If this option is enabled, highlight for relative position of cursor position.
 
 g:line_number_interval#custom_interval
 					*g:line_number_interval#custom_interval*
 	default value: [1, 2, 3, 5, 8, 13, 21, 34, ...] (fibonacci sequence)
-	Set custom interval list.
-	This option is only for relativenumber.
+	Relative position to highlight.
 
 ------------------------------------------------------------------------------
 HIGHLIGHTS				*line-number-interval-highlights*
