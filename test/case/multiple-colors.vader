@@ -1,0 +1,38 @@
+Include: include/setup.vader
+
+Given (Prepare buffer has 15 lines.):
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    11
+    12
+    13
+    14
+    15
+
+Execute (Check multiple colors with custom interval.):
+    let g:line_number_interval#use_custom = 1
+    let g:line_number_interval#custom_interval = [3, 9]
+
+    highlight HighlightedLineNr1 guifg=Green ctermfg=2
+
+    set relativenumber
+
+    LineNumberIntervalEnable
+
+    2
+    doautocmd CursorMoved
+
+    AssertEqual "\n--- Signs ---\nSigns for [Vader-workbench]:\n    line=5  id=1  group=LineNumberGroup  name=LineNumberInterval1  priority=10\n    line=11  id=2  group=LineNumberGroup  name=LineNumberInterval  priority=10\n", execute('sign place group=LineNumberGroup')
+
+    11
+    doautocmd CursorMoved
+
+    AssertEqual "\n--- Signs ---\nSigns for [Vader-workbench]:\n    line=2  id=2  group=LineNumberGroup  name=LineNumberInterval  priority=10\n    line=8  id=1  group=LineNumberGroup  name=LineNumberInterval1  priority=10\n    line=14  id=3  group=LineNumberGroup  name=LineNumberInterval1  priority=10\n", execute('sign place group=LineNumberGroup')
