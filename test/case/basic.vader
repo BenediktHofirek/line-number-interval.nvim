@@ -42,7 +42,7 @@ Execute (Check autocmd.):
 
     LineNumberIntervalEnable
 
-    AssertEqual "\n--- Autocommands ---\nLineNumberInterval  BufNewFile\n    *         call line_number_interval#update()\nLineNumberInterval  BufReadPost\n    *         call line_number_interval#update()\nLineNumberInterval  CursorMoved\n    *         call line_number_interval#update()\nLineNumberInterval  CursorMovedI\n    *         call line_number_interval#update()", execute('autocmd LineNumberInterval')
+    AssertEqual "\n--- Autocommands ---\nLineNumberInterval  BufNewFile\n    *         call line_number_interval#update()\nLineNumberInterval  BufReadPost\n    *         call line_number_interval#update()\nLineNumberInterval  CursorMoved\n    *         call line_number_interval#update()\nLineNumberInterval  CursorMovedI\n    *         call line_number_interval#update()\nLineNumberInterval  TextChanged\n    *         call line_number_interval#update()\nLineNumberInterval  TextChangedT\n    *         call line_number_interval#update()", execute('autocmd LineNumberInterval')
 
     LineNumberIntervalDisable
 
