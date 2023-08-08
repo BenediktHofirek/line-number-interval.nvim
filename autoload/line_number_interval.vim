@@ -66,7 +66,7 @@ function! line_number_interval#enable() abort
 
     augroup LineNumberInterval
         autocmd!
-        autocmd BufRead,BufNewFile,CursorMoved,CursorMovedI * call line_number_interval#update()
+        autocmd TextChanged,TextChangedT,BufRead,BufNewFile,CursorMoved,CursorMovedI * call line_number_interval#update()
     augroup END
 
     call line_number_interval#update()
