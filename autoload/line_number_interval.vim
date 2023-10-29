@@ -1,7 +1,4 @@
 function! line_number_interval#enable() abort
-    if g:line_number_interval#use_custom && !exists('g:line_number_interval#custom_interval')
-        let g:line_number_interval#custom_interval = line_number_interval#fibonacci()
-    endif
 
     let l:ui_type = ['gui', 'cterm']
     let l:fg_bg = ['fg', 'bg']
@@ -73,33 +70,6 @@ function! line_number_interval#enable() abort
     redraw
 
     let s:enabled_line_number_interval = 1
-endfunction
-
-function! line_number_interval#disable() abort
-    augroup LineNumberInterval
-        autocmd!
-    augroup END
-
-    call sign_unplace('LineNumberGroup', {'buffer': bufname('%')})
-    try
-        call sign_undefine('LineNumberInterval')
-    catch /E155: Unknown sign: LineNumberInterval/
-    endtry
-
-    for i in range(1, 20)
-        try
-            call sign_undefine('LineNumberInterval' . i)
-        catch /E155: Unknown sign: LineNumberInterval/
-        endtry
-    endfor
-
-    if exists('s:linenr_color')
-        execute 'highlight LineNr'
-            \ 'guifg='   s:linenr_color.gui.fg   'guibg='   s:linenr_color.gui.bg
-            \ 'ctermfg=' s:linenr_color.cterm.fg 'ctermbg=' s:linenr_color.cterm.bg
-    endif
-
-    let s:enabled_line_number_interval = 0
 endfunction
 
 function! line_number_interval#toggle() abort
@@ -236,13 +206,4 @@ function! line_number_interval#update() abort
             endwhile
         endif
     endif
-endfunction
-
-function! line_number_interval#fibonacci() abort
-    let l:fibonacci = [1, 2]
-    while l:fibonacci[-1] <= &lines
-        call add(l:fibonacci, (l:fibonacci[-1] + l:fibonacci[-2]))
-    endwhile
-
-    return l:fibonacci
 endfunction
