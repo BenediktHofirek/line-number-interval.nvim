@@ -56,7 +56,7 @@ function! line_number_interval#enable() abort
         \ 'numhl': 'HighlightedLineNr'
         \ })
 
-    for i in range(1, 9)
+    for i in range(1, 20)
         if hlexists('HighlightedLineNr' . i)
             call sign_define('LineNumberInterval' . i, {
                 \ 'numhl': 'HighlightedLineNr' . i
@@ -86,7 +86,7 @@ function! line_number_interval#disable() abort
     catch /E155: Unknown sign: LineNumberInterval/
     endtry
 
-    for i in range(1, 9)
+    for i in range(1, 20)
         try
             call sign_undefine('LineNumberInterval' . i)
         catch /E155: Unknown sign: LineNumberInterval/
@@ -103,11 +103,7 @@ function! line_number_interval#disable() abort
 endfunction
 
 function! line_number_interval#toggle() abort
-    if exists('s:enabled_line_number_interval') && s:enabled_line_number_interval
-        call line_number_interval#disable()
-    else
         call line_number_interval#enable()
-    endif
 endfunction
 
 function! line_number_interval#update() abort
