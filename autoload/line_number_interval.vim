@@ -72,10 +72,6 @@ function! line_number_interval#enable() abort
     let s:enabled_line_number_interval = 1
 endfunction
 
-function! line_number_interval#toggle() abort
-        call line_number_interval#enable()
-endfunction
-
 function! line_number_interval#update() abort
     call sign_unplace('LineNumberGroup', {'buffer': bufname('%')})
 
