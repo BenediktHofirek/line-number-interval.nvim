@@ -18,5 +18,3 @@ elseif get(g:, 'line_number_interval#enable_at_startup', 0)
 endif
 
 command! LineNumberIntervalEnable call line_number_interval#enable()
-command! LineNumberIntervalDisable call line_number_interval#disable()
-command! LineNumberIntervalToggle call line_number_interval#toggle()
